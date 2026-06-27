@@ -1,6 +1,5 @@
 "use client";
 
-import "@google/model-viewer";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
@@ -34,8 +33,25 @@ import {
   FaShoppingBag
 } from "react-icons/fa";
 
+type ModelViewerProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+> & {
+  src?: string;
+  "camera-controls"?: boolean;
+  "auto-rotate"?: boolean;
+  "environment-image"?: string;
+  "shadow-intensity"?: string;
+  exposure?: string;
+};
+
+const ModelViewer = "model-viewer" as unknown as React.ElementType<ModelViewerProps>;
+
 export default function PortfolioPage() {
 
+  useEffect(() => {
+  import("@google/model-viewer");
+}, []);
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeProductType, setActiveProductType] = useState("shoes");
   const [activeProduct, setActiveProduct] = useState("asics");
@@ -340,24 +356,25 @@ const productData = {
     id: "scan-characters",
     name: "Scan Characters",
     category: "Digital Humans",
+    model: "",
   },
-
   {
     id: "metahumans",
     name: "MetaHumans",
     category: "Digital Humans",
+    model: "",
   },
-
   {
     id: "face-scans",
     name: "Face Scans",
     category: "Digital Humans",
+    model: "",
   },
-
   {
     id: "head-scans",
     name: "Head Scans",
     category: "Digital Humans",
+    model: "",
   },
 ],
 };
@@ -831,7 +848,7 @@ overflow-y-auto
   </div>
 )}
   
-  <model-viewer
+  <ModelViewer
   src={currentProduct?.model}
   camera-controls
   auto-rotate
@@ -850,7 +867,7 @@ overflow-y-auto
     backgroundColor: "black",
   }}
 >
-</model-viewer>
+</ModelViewer>
 
   <div className="absolute bottom-4 right-4 z-20">
 
@@ -1207,7 +1224,7 @@ overflow-y-auto
   </div>
 )}
   
-  <model-viewer
+  <ModelViewer
   src={currentProduct?.model}
   camera-controls
   auto-rotate
@@ -1226,7 +1243,7 @@ overflow-y-auto
     backgroundColor: "black",
   }}
 >
-</model-viewer>
+</ModelViewer>
 
   <div className="absolute bottom-4 right-4 z-20">
 

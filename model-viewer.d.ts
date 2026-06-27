@@ -1,6 +1,4 @@
-import React from "react";
-
-declare global {
+declare namespace React {
   namespace JSX {
     interface IntrinsicElements {
       "model-viewer": React.DetailedHTMLProps<
@@ -10,8 +8,8 @@ declare global {
         src?: string;
         alt?: string;
         poster?: string;
-        loading?: "auto" | "lazy" | "eager";
-        reveal?: "auto" | "interaction";
+        loading?: string;
+        reveal?: string;
         "camera-controls"?: boolean;
         "auto-rotate"?: boolean;
         "shadow-intensity"?: string;
