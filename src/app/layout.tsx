@@ -19,7 +19,7 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lamerix.com"),
+  metadataBase: new URL("https://studio.lamerix.com"),
 
   title: {
     default: "LAMERIX Studio | Premium 3D Studio",
@@ -60,13 +60,17 @@ export const metadata: Metadata = {
     follow: true,
   },
 
+  verification: {
+  google: "3_oez95g_w0__XZjE4-IHZirgTW3YSWe6svlKO9Ant4",
+},
+
   openGraph: {
     title: "LAMERIX Studio | Premium 3D Studio",
 
     description:
       "Premium Game Art, Product Visualization, Architecture Visualization, Animation and Interactive Digital Experiences.",
 
-    url: "https://lamerix.com",
+    url: "https://studio.lamerix.com",
 
     siteName: "LAMERIX Studio",
 
