@@ -129,14 +129,21 @@ const productData = {
     id: "asics",
     name: "Asics Gel-Lyte",
     category: "Shoes",
-    model: "/models/shoes/Asics.glb",
+    model: "/models/shoes/Asics Gel-Lyte.glb",
   },
 
   {
-    id: "caval",
-    name: "Caval",
+    id: "puma",
+    name: "Puma Nitro",
     category: "Shoes",
-    model: "/models/shoes/Caval.glb",
+    model: "/models/shoes/Puma Nitro.glb",
+  },
+ 
+  {
+    id: "vans",
+    name: "Vans",
+    category: "Shoes",
+    model: "/models/shoes/Vans.glb",
   },
 
   {
@@ -147,17 +154,24 @@ const productData = {
   },
 
   {
-    id: "drmartens",
-    name: "Dr Martens",
+    id: "QC Shoe",
+    name: "QC Shoe",
     category: "Shoes",
-    model: "/models/shoes/Dr_Martens.glb",
+    model: "/models/shoes/QC Shoe.glb",
   },
-
+  
   {
     id: "hoka",
     name: "Hoka",
     category: "Shoes",
     model: "/models/shoes/Hoka.glb",
+  },
+  
+  {
+    id: "drmartens",
+    name: "Dr Martens",
+    category: "Shoes",
+    model: "/models/shoes/Dr_Martens.glb",
   },
 
   {
@@ -182,20 +196,6 @@ const productData = {
   },
 
   {
-    id: "on",
-    name: "On Running",
-    category: "Shoes",
-    model: "/models/shoes/On Right.glb",
-  },
-
-  {
-    id: "puma",
-    name: "Puma Nitro",
-    category: "Shoes",
-    model: "/models/shoes/Puma Nitro.glb",
-  },
-
-  {
     id: "represent",
     name: "Represent",
     category: "Shoes",
@@ -209,12 +209,13 @@ const productData = {
     model: "/models/shoes/Tom Adam.glb",
   },
 
-  {
-    id: "vans",
-    name: "Vans",
+    {
+    id: "caval",
+    name: "Caval",
     category: "Shoes",
-    model: "/models/shoes/Vans.glb",
+    model: "/models/shoes/Caval.glb",
   },
+
 ],
 
   bags: [
