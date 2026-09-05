@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SectionPager from "@/components/SectionPager";
 import Image from "next/image";
 import Link from "next/link";
 import { HiHeart } from "react-icons/hi";
@@ -25,7 +24,7 @@ export default function Home() {
 
       {/* ================= HERO ================= */}
 
-      <section id="home" className="relative h-[100vh] overflow-hidden">
+      <section className="relative h-[100vh] overflow-hidden">
 
         {/* Background Image */}
 
@@ -117,8 +116,6 @@ export default function Home() {
         </div>
 
       </section>
-
-      <SectionPager />
 
       {/* ================= SERVICES ================= */}
 
