@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import {
   HiOutlineMail,
@@ -55,8 +55,9 @@ export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeProductType, setActiveProductType] = useState("shoes");
   const [activeProduct, setActiveProduct] = useState("asics");
+  const [activeDigitalHumanType, setActiveDigitalHumanType] = useState("scan-characters");
+  const [activeScanCharacter, setActiveScanCharacter] = useState("gladiator");
   const [activeAnimation, setActiveAnimation] = useState("can");
-  const modelViewerRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const [productPage, setProductPage] = useState(0);
   const gameArtData = {
@@ -101,13 +102,13 @@ export default function PortfolioPage() {
 {
   id: "perfume01",
   name: "Perfume 01",
-  video: "/animations/Perfume_01.mp4",
+  video: "/animations/Perfume 01.mp4",
 },
 
 {
   id: "perfume02",
   name: "Perfume 02",
-  video: "/animations/Perfume_02.mp4",
+  video: "/animations/Perfume 02.mp4",
 },
 
 {
@@ -119,7 +120,7 @@ export default function PortfolioPage() {
 {
   id: "croc-clog",
   name: "Croc Clog Papaya",
-  video: "/animations/croc_clog_papaya_promotional_video.mp4",
+  video: "/animations/Croc Clog Papaya Promotional Video.mp4",
 },
 ];
 
@@ -215,6 +216,13 @@ const productData = {
     category: "Shoes",
     model: "/models/shoes/Caval.glb",
   },
+
+    {
+      id: "vitesse-tns-td",
+      name: "Vitesse TNS TD",
+      category: "Shoes",
+      model: "/models/shoes/Vitesse TNS TD.glb",
+    },
 
 ],
 
@@ -357,28 +365,43 @@ const productData = {
     id: "scan-characters",
     name: "Scan Characters",
     category: "Digital Humans",
+    description: "High-fidelity character scans and realistic digital doubles.",
     model: "",
   },
   {
     id: "metahumans",
     name: "MetaHumans",
     category: "Digital Humans",
+    description: "Game-ready humans built for expressive real-time experiences.",
     model: "",
   },
   {
     id: "face-scans",
-    name: "Face Scans",
+    name: "3D People for Architecture",
     category: "Digital Humans",
-    model: "",
-  },
-  {
-    id: "head-scans",
-    name: "Head Scans",
-    category: "Digital Humans",
+    description: "Realistic 3D people created for architectural visualization and walkthroughs.",
     model: "",
   },
 ],
 };
+
+const scanCharacterData = [
+  {
+    id: "gladiator",
+    name: "Gladiator",
+    model: "/models/Characters/Scan Characters/Gladiator.glb",
+  },
+  {
+    id: "richard",
+    name: "Richard",
+    model: "/models/Characters/Scan Characters/Richard.glb",
+  },
+  {
+    id: "tomasb-f",
+    name: "TomasB F",
+    model: "/models/Characters/Scan Characters/TomasB_f.glb",
+  },
+];
 
 const [activeGameArtType, setActiveGameArtType] =
   useState("stylized");
@@ -388,6 +411,14 @@ const [activeGameArt, setActiveGameArt] =
 
 const currentAnimation = animationData.find(
   (item) => item.id === activeAnimation
+);
+
+const currentDigitalHuman = productData.digitalHumans.find(
+  (item) => item.id === activeDigitalHumanType
+);
+
+const currentScanCharacter = scanCharacterData.find(
+  (item) => item.id === activeScanCharacter
 );
 
 const currentProduct =
@@ -401,14 +432,14 @@ const currentProduct =
   ].slice(productPage * 7, productPage * 7 + 7);
   
   useEffect(() => {
-  setLoading(true);
+  const loadingTimer = setTimeout(() => setLoading(true), 0);
+  const completeTimer = setTimeout(() => setLoading(false), 1500);
 
-  const timer = setTimeout(() => {
-    setLoading(false);
-  }, 1500);
-
-  return () => clearTimeout(timer);
-}, [activeProduct]);
+  return () => {
+    clearTimeout(loadingTimer);
+    clearTimeout(completeTimer);
+  };
+}, [activeProduct, activeScanCharacter]);
 
   return (
 
@@ -750,10 +781,13 @@ overflow-y-auto
         <div className="space-y-3">
 
          <button
-  onClick={() => setActiveProductType("Scan Characters")}
+        onClick={() => {
+          setActiveDigitalHumanType("scan-characters");
+          setActiveScanCharacter("gladiator");
+        }}
   className={`w-full p-3 border transition-all duration-300
   ${
-    activeProductType === "Scan Characters"
+    activeDigitalHumanType === "scan-characters"
       ? "border-cyan-400 text-cyan-400 bg-cyan-400/5 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
       : "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-400 hover:bg-cyan-400/5 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]"
   }`}
@@ -764,12 +798,11 @@ overflow-y-auto
 
           <button
   onClick={() => {
-  setActiveProductType("MetaHumans");
-  setActiveProduct("diesel");
+  setActiveDigitalHumanType("metahumans");
 }}
   className={`w-full p-3 border transition-all duration-300
   ${
-    activeProductType === "MetaHumans"
+    activeDigitalHumanType === "metahumans"
       ? "border-cyan-400 text-cyan-400 bg-cyan-400/5 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
       : "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-400 hover:bg-cyan-400/5 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]"
   }`}
@@ -779,33 +812,18 @@ overflow-y-auto
 
           <button
   onClick={() => {
-  setActiveProductType("Face Scans");
-  setActiveProduct("gshock");
+  setActiveDigitalHumanType("face-scans");
 }}
   className={`w-full p-3 border transition-all duration-300
   ${
-    activeProductType === "Face Scans"
+    activeDigitalHumanType === "face-scans"
       ? "border-cyan-400 text-cyan-400 bg-cyan-400/5 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
       : "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-400 hover:bg-cyan-400/5 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]"
   }`}
 >
-  Face Scans
+  3D People for Architecture
 </button>
 
-          <button
-  onClick={() => {
-  setActiveProductType("Head Scans");
-  setActiveProduct("antique-table");
-}}
-  className={`w-full p-3 border transition-all duration-300
-  ${
-    activeProductType === "Head Scans"
-      ? "border-cyan-400 text-cyan-400 bg-cyan-400/5 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
-      : "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-400 hover:bg-cyan-400/5 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]"
-  }`}
->
-  Head Scans
-</button>
 </div>
 </div>
 
@@ -816,59 +834,54 @@ overflow-y-auto
 
   <div className="h-full flex items-center justify-center relative border border-cyan-400/20 bg-black overflow-hidden">
 
-  {loading && (
-  <div className="
-    absolute
-    inset-0
-    z-20
-    flex
-    items-center
-    justify-center
-    bg-black/70
-    backdrop-blur-sm
-  ">
-    <div className="flex flex-col items-center">
+  {activeDigitalHumanType === "scan-characters" ? (
+    <>
+      {loading && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+            <p className="mt-4 text-cyan-400 tracking-[3px] text-sm">
+              LOADING CHARACTER...
+            </p>
+          </div>
+        </div>
+      )}
 
-      <div
-        className="
-          w-12
-          h-12
-          border-2
-          border-cyan-400/30
-          border-t-cyan-400
-          rounded-full
-          animate-spin
-        "
+      <ModelViewer
+        key={currentScanCharacter?.model}
+        src={currentScanCharacter?.model}
+        camera-controls
+        auto-rotate
+        environment-image="/hdri/shoe-studio.hdr"
+        shadow-intensity="2"
+        exposure="1"
+        onLoad={() => setLoading(false)}
+        style={{ width: "100%", height: "100%", backgroundColor: "black" }}
       />
+    </>
+  ) : (
+    <>
+      <Image
+        src="/images/about/about_robotic.png"
+        alt="Digital human production artwork"
+        fill
+        className="object-cover opacity-70"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
+    </>
+  )}
 
-      <p className="mt-4 text-cyan-400 tracking-[3px] text-sm">
-        LOADING EXPERIENCE...
-      </p>
-
-    </div>
+  <div className="absolute bottom-0 left-0 z-10 w-full p-8 bg-gradient-to-t from-black to-transparent">
+    <p className="text-cyan-400 text-xs tracking-[4px] uppercase mb-3">
+      Digital Humans / {activeDigitalHumanType === "scan-characters" ? "Scan Characters" : currentDigitalHuman?.name}
+    </p>
+    <h2 className="text-3xl md:text-4xl uppercase tracking-[4px] mb-3">
+      {activeDigitalHumanType === "scan-characters" ? currentScanCharacter?.name : currentDigitalHuman?.name}
+    </h2>
+    <p className="max-w-xl text-white/65 text-sm leading-6">
+      {currentDigitalHuman?.description}
+    </p>
   </div>
-)}
-  
-  <ModelViewer
-  src={currentProduct?.model}
-  camera-controls
-  auto-rotate
-  environment-image="/hdri/shoe-studio.hdr"
-  shadow-intensity="2"
-  exposure="1"
-
-  onLoad={() => {
-    console.log("MODEL LOADED");
-    setLoading(false);
-  }}
-
-  style={{
-    width: "100%",
-    height: "100%",
-    backgroundColor: "black",
-  }}
->
-</ModelViewer>
 
   <div className="absolute bottom-4 right-4 z-20">
 
@@ -909,15 +922,26 @@ overflow-y-auto
 
   <div className="space-y-3 flex-1 overflow-hidden">
 
-    {visibleProducts.map((item) => (
+    {(activeDigitalHumanType === "scan-characters"
+      ? scanCharacterData
+      : productData.digitalHumans
+    ).map((item) => (
 
       <button
         key={item.id}
-        onClick={() => setActiveProduct(item.id)}
+        onClick={() => {
+          if (activeDigitalHumanType === "scan-characters") {
+            setActiveScanCharacter(item.id);
+          } else {
+            setActiveDigitalHumanType(item.id);
+          }
+        }}
         className={`w-full text-left p-3 border transition-all duration-300
 
         ${
-          activeProduct === item.id
+          (activeDigitalHumanType === "scan-characters"
+            ? activeScanCharacter === item.id
+            : activeDigitalHumanType === item.id)
             ? "border-cyan-400 text-cyan-400 bg-cyan-400/5 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
             : "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-400 hover:bg-cyan-400/5"
         }`}
@@ -933,30 +957,11 @@ overflow-y-auto
 
   <div className="flex justify-between mt-4">
 
-    {productPage > 0 && (
-
-      <button
-        onClick={() => setProductPage(productPage - 1)}
-        className="text-cyan-400 text-sm hover:text-white transition"
-      >
-        ↑ Previous
-      </button>
-
-    )}
-
-    {(productPage + 1) * 7 <
-      productData[
-        activeProductType as keyof typeof productData
-      ].length && (
-
-      <button
-        onClick={() => setProductPage(productPage + 1)}
-        className="text-cyan-400 text-sm hover:text-white transition ml-auto"
-      >
-        ↓ Browse More
-      </button>
-
-    )}
+    <span className="text-white/35 text-xs uppercase tracking-[2px]">
+      {activeDigitalHumanType === "scan-characters"
+        ? `${scanCharacterData.length} characters`
+        : `${productData.digitalHumans.length} disciplines`}
+    </span>
 
   </div>
 

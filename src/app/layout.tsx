@@ -22,6 +22,12 @@ const anton = Anton({
 export const metadata: Metadata = {
   metadataBase: new URL("https://studio.lamerix.com"),
 
+  icons: {
+    icon: "/images/logo-icon.png",
+    shortcut: "/images/logo-icon.png",
+    apple: "/images/logo-icon.png",
+  },
+
   title: {
     default: "LAMERIX Studio | Premium 3D Studio",
     template: "%s | LAMERIX Studio",
