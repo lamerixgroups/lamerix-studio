@@ -36,7 +36,7 @@ export default function SectionPager() {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 md:block"
+      className="fixed right-3 top-1/2 z-40 -translate-y-1/2 md:right-6"
     >
       <ol className="relative flex flex-col items-center gap-7">
         <span className="absolute top-3 bottom-3 w-px bg-cyan-400/20" aria-hidden="true" />
